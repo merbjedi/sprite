@@ -78,6 +78,7 @@ Configuration of `sprite` is done via `config/sprite.yml`. It allows you to set 
   - `sprites_class:` defines the class name that gets added to all sprite stylesheet rules (defaults to `sprites`)
   - `default_format:` defines the default file image format of the generated files. (defaults to `png`)
   - `default_spacing:` defines the default pixel spacing between sprites (defaults to 0)
+  - `resize_to:` width and height (in the format "120x60") to resize all source images to before composition. (defaults to no nil, or no resizing)
   - `class_separator:` used to generated the class name by separating the image name and sprite name (defaults to `-`)
   - `add_datestamps`: whether or not to add datestamps to the generated background image urls. this will allow proper cache versioning (defaults to `true`)
   
@@ -86,6 +87,7 @@ Configuration of `sprite` is done via `config/sprite.yml`. It allows you to set 
   - `sources:` defines a list of source image filenames to build the target image from (required). They are parsed by <code>Dir.glob</code>
   - `align:` defines the composite gravity type, horizontal or vertical. (defaults to `vertical`)
   - `spaced_by:` spacing (in pixels) between the combined images. (defaults to `0`)
+  - `resize_to:` width and height (in the format "120x60") to resize all source images to before composition. (defaults to no nil, or no resizing)
   - `format:` define what image file format gets created (optional, uses `default_format` setting if not set)
 
 All image and style paths should be set relative to the public folder (which is configurable via public_path setting).

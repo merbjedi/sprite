@@ -19,5 +19,10 @@ module Sprite
 end
 
 require 'sprite/builder'
+require 'sprite/config'
 require 'sprite/image_combiner'
+require 'sprite/image_config'
+require 'sprite/image_reader'
+require 'sprite/image_resizer'
+require 'sprite/image_writer'
 require 'sprite/styles'

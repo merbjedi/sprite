@@ -1,18 +1,20 @@
 module Sprite
   class Runner
-    
+
     attr_accessor :options
     def initialize(args)
       self.options = set_options(args)
     end
-    
+
     def set_options(args)
       opts = {}
       # TODO
       # edit options with passed in args
+      opts[:path] = args.first if args.any?
+
       opts
     end
-    
+
     # run sprite creator
     def run!
       begin
@@ -25,6 +27,6 @@ module Sprite
       end
       0
     end
-    
+
   end
 end
