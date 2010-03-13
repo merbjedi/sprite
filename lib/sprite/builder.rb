@@ -42,7 +42,25 @@ module Sprite
       end
     end
 
-    protected
+    # get the disk path for the style output file
+    def style_output_path(relative = false)
+      style = Styles.get(config["style"]).new(self)
+
+      path = config['style_output_path']
+      unless path.include?(".#{style.extension}")
+        path = "#{path}.#{style.extension}"
+      end
+      Config.new(config).public_path(path, relative)
+    end
+
+    def image_path(group)
+      image_info = images.detect{|image| image['name'] == group}
+      image_config = ImageConfig.new(image_info, config)
+      sprite_file = "#{image_config.name}.#{image_config.format}"
+      "/#{config['image_output_path']}#{sprite_file}"
+    end
+
+  protected
     def write_image(image_info)
       results = []
       image_config = ImageConfig.new(image_info, config)
@@ -83,14 +101,16 @@ module Sprite
     end
 
     def write_styles
-      style = Styles.get(config["style"]).new(self)
-
       # use the absolute style output path to make sure we have the directory set up
-      path = style_output_path(style.extension, false)
+      path = style_output_path
       FileUtils.mkdir_p(File.dirname(path))
 
       # send the style the relative path
-      style.write(style_output_path(style.extension, true), @sprite_files)
+      style.write(style_output_path(true), @sprite_files)
+    end
+
+    def style
+      @style ||= Styles.get(config["style"]).new(self)
     end
 
     # sets all the default values on the config
@@ -144,15 +164,6 @@ module Sprite
           Dir.glob(image_source_path(source))
         }.flatten.compact
       end
-    end
-
-    # get the disk path for the style output file
-    def style_output_path(file_ext, relative = false)
-      path = config['style_output_path']
-      unless path.include?(".#{file_ext}")
-        path = "#{path}.#{file_ext}"
-      end
-      Config.new(config).public_path(path, relative)
     end
 
     # get the disk path for an image source file

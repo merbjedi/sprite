@@ -6,14 +6,17 @@ module Sprite
       def initialize(builder)
         @builder = builder
       end
-      
-      def write(path, sprite_files)        
+
+      def write(path, sprite_files)
         # build the yml file
-        config_location = write_config(path, sprite_files)
-        
+        write_config(path, sprite_files)
+
+        # Where to put the sass mixin file
+        sass_path = path.gsub(".yml", ".sass")
+
         # write the sass mixins to disk
-        File.open(File.join(Sprite.root, path), 'w') do |f|
-          f.puts "!sprite_data = '#{config_location}'"
+        File.open(File.join(Sprite.root, sass_path), 'w') do |f|
+          f.puts "!sprite_data = '#{path}'"
           f.puts ""
           f.puts "= sprite(!group_name, !image_name)"
           f.puts "  background= sprite_background(!group_name, !image_name)"
@@ -22,7 +25,7 @@ module Sprite
           f.puts ""
         end
       end
-      
+
       # write the sprite configuration file (used by the yml extension)
       def write_config(path, sprite_files)
         # build a grouped hash with all the sprites in it
@@ -35,20 +38,16 @@ module Sprite
             end
           end
         end
-        
+
         # write the config yml to disk
-        config_path = path.gsub(".sass", ".yml")
-        File.open(File.join(Sprite.root, config_path), 'w') do |f|
+        File.open(File.join(Sprite.root, path), 'w') do |f|
           YAML.dump(result, f)
         end
-        
-        config_path
       end
-      
+
       def extension
-        "sass"
+        "yml"
       end
-  
     end
   end
 end
