@@ -10,6 +10,17 @@ Spec::Rake::SpecTask.new(:spec) do |t|
   t.spec_files = FileList['spec/**/*_spec.rb']
 end
 
+namespace :spec do
+  desc "Run all specs in spec directory with RCov"
+  Spec::Rake::SpecTask.new(:rcov) do |t|
+    t.spec_files = FileList['spec/**/*_spec.rb']
+    t.rcov = true
+    t.rcov_opts = ["--exclude spec/*,gems/*,lib/tasks/*,app/analytics/application_metrics.rb"]
+  end
+end
+
+
+
 Jeweler::Tasks.new do |gemspec|
   gemspec.name = "sprite"
   gemspec.summary = "generate your css sprites automagically"
