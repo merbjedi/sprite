@@ -31,6 +31,14 @@ module Sprite
         sprite_builder.image_path(group.value)
       end
 
+      def sprite_url(group)
+        "url('#{sprite_image(group)}')"
+      end
+
+      def sprite_offset(*args)
+        "#{sprite_x_offset(*args)} #{sprite_y_offset(*args)}"
+      end
+
     protected
       def sprite_attr(attr, group, image)
         sprite = sprite_data(group, image)
