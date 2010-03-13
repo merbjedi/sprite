@@ -14,6 +14,8 @@ module Sprite
           puts e.to_s
           {}
         end
+      else
+        {}
       end
     end
     
