@@ -13,7 +13,7 @@
 if you have any problems with the rmagick gem, install imagemagick via macports first:
 
     sudo port install libxml2
-    sudo port install ImageMagick  
+    sudo port install ImageMagick
 
 or via installer: http://github.com/maddox/magick-installer/tree/master
 
@@ -26,8 +26,8 @@ Install the `sprite` gem from gemcutter
 
 ## USAGE ##
 
-if installed as a gem, at your root project folder you can just run 
-  
+if installed as a gem, at your root project folder you can just run
+
     sprite
 
 ### Intelligent Defaults ###
@@ -35,7 +35,7 @@ if installed as a gem, at your root project folder you can just run
 Without having to configure anything, `sprite` will allow you to easily generate sprites based on a couple default folder settings we give you right off the bat.
 
 For example, given you have the following setup:
-  
+
     public/
       images/
         sprites/
@@ -44,14 +44,14 @@ For example, given you have the following setup:
             go.png
             back.png
             forward.png
-        
+
           weather/
             sunny.gif
             rainy.gif
             cloudy.gif
-  
+
 Running `sprite` with no configuration file will generate the following new files:
-  
+
     public/
       stylesheets/
         sprites.css
@@ -60,19 +60,20 @@ Running `sprite` with no configuration file will generate the following new file
           black-icons.png
           weather.png
 
-Any folders within `public/images/sprites/` will get compressed into a merged image file at the same 
-location. Then `sprites.css` will get generated in the stylesheets folder with all the class definitions for 
+Any folders within `public/images/sprites/` will get compressed into a merged image file at the same
+location. Then `sprites.css` will get generated in the stylesheets folder with all the class definitions for
 these files. Just add a link to `sprites.css` into your html <head> and you're ready to go!
 
 
 ## CONFIGURATION ##
 
 Configuration of `sprite` is done via `config/sprite.yml`. It allows you to set sprite configuration options, and fine tune exactly which sprites get generated where.
-  
+
 * `config:` section defines all the global properties for sprite generation. Such as how it generates the styles, where it looks for images, where it writes it output file to, and what image file format it uses by default
   - `style:` defines how the style rules are outputted. built in options are `css`, `sass`, and `sass_mixin`. (defaults to `css`)
-  - `style_output_path:` defines the file path where your style settings get written (defaults to `stylesheets/sprites`). the file extension not needed as it will be set based on the `style:` setting 
+  - `style_output_path:` defines the file path where your style settings get written (defaults to `stylesheets/sprites`). the file extension not needed as it will be set based on the `style:` setting
   - `image_output_path:` defines the folder path where the combined sprite images files are written (defaults to `images/sprites/`)
+  - `css_image_path:` defines the path used in css to find sprite image files (defaults to `/images/sprites/`)
   - `image_source_path:` defines the folder where source image files are read from (defaults to `images/`)
   - `public_path:` defines the root folder where static assets live (defaults to `public/`)
   - `sprites_class:` defines the class name that gets added to all sprite stylesheet rules (defaults to `sprites`)
@@ -81,7 +82,7 @@ Configuration of `sprite` is done via `config/sprite.yml`. It allows you to set 
   - `resize_to:` width and height (in the format "120x60") to resize all source images to before composition. (defaults to no nil, or no resizing)
   - `class_separator:` used to generated the class name by separating the image name and sprite name (defaults to `-`)
   - `add_datestamps`: whether or not to add datestamps to the generated background image urls. this will allow proper cache versioning (defaults to `true`)
-  
+
 * `images:` section provides an array of configurations which define which image files are built, and where they get their sprites from. each image setup provides the following config options:
   - `name:` name of image (required)
   - `sources:` defines a list of source image filenames to build the target image from (required). They are parsed by <code>Dir.glob</code>
@@ -106,9 +107,9 @@ All image and style paths should be set relative to the public folder (which is 
       class_separator: '-'
       default_format: png
       default_spacing: 50
-    
+
     # defines what sprite collections get created
-    images:    
+    images:
 
       # creates a public/images/sprites/blue_stars.png image with 4 sprites in it
       - name: blue_stars
@@ -120,8 +121,8 @@ All image and style paths should be set relative to the public folder (which is 
           - icons/blue-stars/medium.png
           - icons/blue-stars/large.png
           - icons/blue-stars/xlarge.png
-      
-      # creates a public/images/sprites/green-stars.jpg image with 
+
+      # creates a public/images/sprites/green-stars.jpg image with
       # all the gif files contained within /images/icons/green-stars/
       - name: green_stars
         format: png
@@ -156,18 +157,18 @@ By default, it will use with `style: css` and generate the file at `public/style
     }
 
 We also support mixin syntax via `style: sass_mixin`. If set, it will generate a SASS mixin which you can use in order to mix in these sprites anywhere within your SASS stylesheets. For this option, set `style_output_path:` to `stylesheets/sass/_sprites` in order to generate the sass mixin file at `stylesheets/sass/_sprites.sass`
-    
+
     @import "sass/mixins/sprites.sass"
-    
+
     // you can then use your sprite like this
     .largebluestar
       +sprite("blue-stars", "large")
 
     .mysmallbluestar
       +sprite("blue-stars", "small")
-      
+
 Additional style generators are very easy to add. We have one for `style: sass` and `style: sass_ext`. The `sass_ext` style is a work in progress, as it's attempting to write the sprite data to yml and use a dynamic sass extension to provide the mixin. Eventually, if it works, this will be the default for `sass_mixin`
-      
+
 ## Framework Integration?? ##
 
 `sprite` is provided as a command line helper. Deep web framework integration is not implemented at this time, however it shouldn't be needed. Just generate your sprites on your dev machine by running the command line, check in the resulting sprite images and stylesheets to your source control, and deploy!

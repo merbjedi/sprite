@@ -23,6 +23,5 @@ module Sprite
       path_parts << "#{name}.#{format}"
       Config.new(@config).public_path(File.join(*path_parts), relative)
     end
-    
   end
 end

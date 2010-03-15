@@ -57,7 +57,7 @@ module Sprite
       image_info = images.detect{|image| image['name'] == group}
       image_config = ImageConfig.new(image_info, config)
       sprite_file = "#{image_config.name}.#{image_config.format}"
-      "/#{config['image_output_path']}#{sprite_file}"
+      "#{config['css_image_path']}#{sprite_file}"
     end
 
   protected
@@ -118,13 +118,14 @@ module Sprite
       @config['style']              ||= 'css'
       @config['style_output_path']  ||= 'stylesheets/sprites'
       @config['image_output_path']  ||= 'images/sprites/'
+      @config['css_image_path']     ||= "/#{@config['image_output_path']}"
       @config['image_source_path']  ||= 'images/'
       @config['public_path']        ||= 'public/'
       @config['default_format']     ||= 'png'
       @config['class_separator']    ||= '-'
       @config["sprites_class"]      ||= 'sprites'
       @config["default_spacing"]    ||= 0
-      
+
       unless @config.has_key?("add_datestamps")
         @config["add_datestamps"] = true
       end
