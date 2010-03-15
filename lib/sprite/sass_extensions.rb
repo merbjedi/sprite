@@ -35,8 +35,10 @@ module Sprite
         "url('#{sprite_image(group)}')"
       end
 
-      def sprite_offset(*args)
-        "#{sprite_x_offset(*args)} #{sprite_y_offset(*args)}"
+      def sprite_offset(group, image, x=nil, y=nil)
+        x ||= sprite_x_offset(group, image)
+        y ||= sprite_y_offset(group, image)
+        "#{x} #{y}"
       end
 
     protected
