@@ -35,13 +35,34 @@ module Sprite
         "url('#{sprite_image(group)}')"
       end
 
+      ##
+      # Return a sprite offset for the given image.  When the optional x and y values are passed,
+      # numeric values are treated as additional offsets to the sprite image offset.  Any string
+      # values are treated as replacement offsets.
+      #
+      # Examples:
+      # * sprite_offset("common", "icon", "100%", 5) => offset is "100% x+5" where x is the x offset in the sprite
+      # * sprite_offset("common", "icon", "top", "right") => offset is "top right"
       def sprite_offset(group, image, x=nil, y=nil)
-        x ||= sprite_x_offset(group, image)
-        y ||= sprite_y_offset(group, image)
-        "#{x} #{y}"
+        xoff = compute_offset(group, image, :x, x)
+        yoff = compute_offset(group, image, :y, y)
+        "#{xoff} #{yoff}"
       end
 
     protected
+      def compute_offset(group, image, axis, offset)
+        if offset
+          val = offset.value
+          if val.is_a? Fixnum
+            (sprite_attr(axis, group, image).to_i + val).to_s + 'px'
+          else
+            val
+          end
+        else
+          sprite_attr(axis, group, image)
+        end
+      end
+
       def sprite_attr(attr, group, image)
         sprite = sprite_data(group, image)
         if sprite
