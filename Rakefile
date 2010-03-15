@@ -22,14 +22,14 @@ end
 
 
 Jeweler::Tasks.new do |gemspec|
-  gemspec.name = "sprite"
+  gemspec.name = "amikula-sprite"
   gemspec.summary = "generate your css sprites automagically"
   gemspec.description = "sprite is a rails/merb plugin that generates sprites for css, sass"
-  gemspec.email = "merbjedi@gmail.com"
-  gemspec.homepage = "http://github.com/merbjedi/sprite" 
-  gemspec.authors = ["Jacques Crocker"]
+  gemspec.email = "amikula@gmail.com"
+  gemspec.homepage = "http://github.com/amikula/sprite"
+  gemspec.authors = ["Jacques Crocker", "Alf Mikula"]
   gemspec.files.exclude '.gitignore'
-  
+
   # removing test files and specs from the gem to save space
   gemspec.files -= Dir.glob("spec/**/*")
   gemspec.test_files = []
