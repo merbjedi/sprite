@@ -20,7 +20,9 @@ module Sprite
     def image_output_path(name, format, relative = false)
       path_parts = []
       path_parts << Config.chop_trailing_slash(@config['image_output_path']) if Config.path_present?(@config['image_output_path'])
-      path_parts << "#{name}.#{format}"
+
+      cache_buster = "-#{@config['cache_buster']}" if @config['cache_buster']
+      path_parts << "#{name}#{cache_buster}.#{format}"
       Config.new(@config).public_path(File.join(*path_parts), relative)
     end
   end

@@ -56,7 +56,9 @@ module Sprite
     def image_path(group)
       image_info = images.detect{|image| image['name'] == group}
       image_config = ImageConfig.new(image_info, config)
-      sprite_file = "#{image_config.name}.#{image_config.format}"
+
+      cache_buster = "-#{config['cache_buster']}" if config['cache_buster']
+      sprite_file = "#{image_config.name}#{cache_buster}.#{image_config.format}"
       "#{config['css_image_path']}#{sprite_file}"
     end
 
