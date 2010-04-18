@@ -2,9 +2,11 @@ module Sprite
   class ImageCombiner
     def initialize
       # avoid loading rmagick till the last possible moment
+      require "RMagick"
+    rescue LoadError
       require 'rmagick'
     end
-    
+
     def composite_images(dest_image, src_image, x, y)
       width = [src_image.columns + x, dest_image.columns].max
       height = [src_image.rows + y, dest_image.rows].max
@@ -24,7 +26,7 @@ module Sprite
     def image_properties(image)
       {:name => File.basename(image.filename).split('.')[0], :width => image.columns, :height => image.rows}
     end
-        
+
     # REMOVE RMAGICK AND USE IMAGEMAGICK FROM THE COMMAND LINE
     # identify => find properties for an image
     # composite => combine 2 images
