@@ -5,34 +5,34 @@ module Sprite
         sprite = sprite_data(group, image)
         if sprite
           sprite_path = sprite_builder.image_path(group.value)
-          "url('#{sprite_path}') no-repeat #{sprite[:x]}px #{sprite[:y]}px"
+          ::Sass::Script::String.new "url('#{sprite_path}') no-repeat #{sprite[:x]}px #{sprite[:y]}px"
         else
-          ""
+          ::Sass::Script::String.new ""
         end
       end
 
       def sprite_width(*args)
-        sprite_attr(:width, *args)
+        ::Sass::Script::String.new sprite_attr(:width, *args)
       end
 
       def sprite_height(*args)
-        sprite_attr(:height, *args)
+        ::Sass::Script::String.new sprite_attr(:height, *args)
       end
 
       def sprite_x_offset(*args)
-        sprite_attr(:x, *args)
+        ::Sass::Script::String.new sprite_attr(:x, *args)
       end
 
       def sprite_y_offset(*args)
-        sprite_attr(:y, *args)
+        ::Sass::Script::String.new sprite_attr(:y, *args)
       end
 
       def sprite_image(group)
-        sprite_builder.image_path(group.value)
+        ::Sass::Script::String.new sprite_builder.image_path(group.value)
       end
 
       def sprite_url(group)
-        "url('#{sprite_image(group)}')"
+        ::Sass::Script::String.new "url('#{sprite_image(group)}')"
       end
 
       ##
@@ -46,7 +46,7 @@ module Sprite
       def sprite_offset(group, image, x=nil, y=nil)
         xoff = compute_offset(group, image, :x, x)
         yoff = compute_offset(group, image, :y, y)
-        "#{xoff} #{yoff}"
+        ::Sass::Script::String.new "#{xoff} #{yoff}"
       end
 
     protected
@@ -84,9 +84,9 @@ module Sprite
           @__sprite_data = File.open(sprite_data_path) { |yf| YAML::load( yf ) }
         end
 
-        group_data = @__sprite_data[group.to_s]
+        group_data = @__sprite_data[group.value]
         if group_data
-          return group_data[image.to_s]
+          return group_data[image.value]
         else
           nil
         end
