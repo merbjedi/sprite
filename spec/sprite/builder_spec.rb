@@ -15,8 +15,8 @@ describe Sprite::Builder do
     
     context "and the sprite result image" do
       before(:all) do
-        combiner = Sprite::ImageCombiner.new
-        @result_image = combiner.get_image("#{@output_path}/images/sprites/android-icons.png")
+        combiner = Sprite::ImageCombiner.new(mock())
+        @result_image = Sprite::ImageReader.read("#{@output_path}/images/sprites/android-icons.png")
         @result_properties = combiner.image_properties(@result_image)
       end
       
@@ -50,8 +50,8 @@ describe Sprite::Builder do
     
     context "and the sprite result image" do
       before(:all) do
-        combiner = Sprite::ImageCombiner.new
-        @result_image = combiner.get_image("#{@output_path}/images/sprites/android-icons.png")
+        combiner = Sprite::ImageCombiner.new(@sprite.config)
+        @result_image = Sprite::ImageReader.read("#{@output_path}/images/sprites/android-icons.png")
         @result_properties = combiner.image_properties(@result_image)
       end
       

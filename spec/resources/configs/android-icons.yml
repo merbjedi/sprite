@@ -1,5 +1,5 @@
 config:
-  style: css
+  style: templated_css
   style_output_path: output/stylesheets/android-icons
   image_output_path: output/images/sprites/
   image_source_path: resources/images/
@@ -11,7 +11,9 @@ config:
 images:    
   - name: android-icons
     format: png
+    style_output_template: resources/android_css.erb
     align: vertical
     spaced_by: 50
+    resize_to: 48x48
     sources:
       - android-icons/*.png

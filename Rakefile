@@ -11,13 +11,24 @@ Spec::Rake::SpecTask.new(:spec) do |t|
   t.spec_files = FileList['spec/**/*_spec.rb']
 end
 
+namespace :spec do
+  desc "Run all specs in spec directory with RCov"
+  Spec::Rake::SpecTask.new(:rcov) do |t|
+    t.spec_files = FileList['spec/**/*_spec.rb']
+    t.rcov = true
+    t.rcov_opts = ["--exclude spec/*,gems/*,lib/tasks/*,app/analytics/application_metrics.rb"]
+  end
+end
+
+
+
 Jeweler::Tasks.new do |gemspec|
   gemspec.name = "sprite"
   gemspec.summary = "generate your css sprites automagically"
   gemspec.description = "sprite is a rails/merb plugin that generates sprites for css, sass"
   gemspec.email = "merbjedi@gmail.com"
   gemspec.homepage = "http://github.com/merbjedi/sprite"
-  gemspec.authors = ["Jacques Crocker"]
+  gemspec.authors = ["Jacques Crocker", "Alf Mikula"]
   gemspec.files.exclude '.gitignore'
 
   # removing test files and specs from the gem to save space
