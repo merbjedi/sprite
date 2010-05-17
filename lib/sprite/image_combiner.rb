@@ -1,10 +1,13 @@
 module Sprite
   class ImageCombiner
     def initialize(image_config)
-      # avoid loading rmagick till the last possible moment
-      require "RMagick"
-    rescue LoadError
-      require 'rmagick'
+      begin
+        # avoid loading rmagick till the last possible moment
+        require "RMagick"
+      rescue LoadError
+        require 'rmagick'
+      end
+
       @image_config = image_config
     end
 
