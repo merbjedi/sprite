@@ -2,6 +2,7 @@ require 'sprite/styles/sass_generator'
 require 'sprite/styles/css_generator'
 require 'sprite/styles/sass_yml_generator'
 require 'sprite/styles/sass_mixin_generator'
+require 'sprite/styles/sass3_mixin_generator'
 require 'sprite/styles/templated_css_generator'
 
 module Sprite::Styles
@@ -10,6 +11,7 @@ module Sprite::Styles
     "templated_css" => "TemplatedCssGenerator",
     "sass" => "SassGenerator",
     "sass_mixin" => "SassMixinGenerator",
+    "sass3_mixin" => "Sass3MixinGenerator",
     "sass_yml" => "SassYmlGenerator"
   }
 
